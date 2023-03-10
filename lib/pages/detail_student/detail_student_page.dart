@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:vetiludriversons/models/son_data_model.dart';
+import 'package:vetiludriversons/repositories/driver_routes_repository.dart';
 import 'package:vetiludriversons/store/detail_student_store.dart';
 
 class DetailStudentPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class DetailStudentPage extends StatefulWidget {
 
 class _DetailStudentPageState extends State<DetailStudentPage> {
   final detailStudentStore = DetailStudentStore();
-
+  final driverRoutesRepository = DriverRoutesRepository();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,26 +30,24 @@ class _DetailStudentPageState extends State<DetailStudentPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      child: Icon(Icons.person),
-                      radius: 38,
-                    ),
-                    Text(
-                      'Nome:${widget.sonDataModel!.name}',
-                    ),
-                    Text(
-                      'Escola:${widget.sonDataModel!.nameSchool}',
-                    ),
-                    Text(
-                        'Número do encarregado:${widget.sonDataModel!.phoneFather}'),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    child: Icon(Icons.person),
+                    radius: 38,
+                  ),
+                  Text(
+                    'Nome:${widget.sonDataModel!.name}',
+                  ),
+                  Text(
+                    'Escola:${widget.sonDataModel!.nameSchool}',
+                  ),
+                  Text(
+                      'Número do encarregado:${widget.sonDataModel!.phoneFather}'),
+                ],
               ),
             ),
             Column(
@@ -67,6 +66,7 @@ class _DetailStudentPageState extends State<DetailStudentPage> {
                     onPressed: () {
                       detailStudentStore.activeStudentHome();
                       Navigator.pop(context);
+                    
                     },
                     child: const Text('Embarcar para casa'),
                   );

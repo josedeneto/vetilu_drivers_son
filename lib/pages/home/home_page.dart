@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vetiludriversons/controllers/data_routes_controller.dart';
+import 'package:vetiludriversons/pages/add_students/add_student_to_route_page.dart';
 import 'package:vetiludriversons/pages/student_list/student_list_page.dart';
 
 import '../../models/routes_model.dart';
@@ -98,7 +99,7 @@ class _RoutePageState extends State<RoutePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const StudentListPage(),
+                      builder: (_) => const AddStudentToRoutePage(),
                     ),
                   );
                 },

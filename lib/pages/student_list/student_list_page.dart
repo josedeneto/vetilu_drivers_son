@@ -23,54 +23,56 @@ class _StudentListPageState extends State<StudentListPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Observer(builder: (_) {
-          return ListView.separated(
-            separatorBuilder: (_, __) => const Divider(thickness: 0.5),
-            itemCount: students.dataUserChild.length,
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (_, e) {
-              return ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => DetailStudentPage(
-                        sonDataModel: students.dataUserChild[e],
-                      ),
+        child: ListView.separated(
+          separatorBuilder: (_, __) => const Divider(thickness: 0.5),
+          itemCount: students.dataUserChild.length,
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (_, e) {
+            return ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DetailStudentPage(
+                      sonDataModel: students.dataUserChild[e],
                     ),
-                  );
-                },
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.blue,
-                  child: Text(
-                    students.dataUserChild[e].name[0],
                   ),
+                );
+              },
+              leading: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.blue,
+                child: Text(
+                  students.dataUserChild[e].name[0],
                 ),
-                title: Text(
-                  students.dataUserChild[e].name,
-                ),
-                subtitle: Text(
-                  students.dataUserChild[e].nameSchool,
-                ),
-                trailing: Row(
+              ),
+              title: Text(
+                students.dataUserChild[e].name,
+              ),
+              subtitle: Text(
+                students.dataUserChild[e].nameSchool,
+              ),
+              trailing: Observer(builder: (_) {
+                return Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.person,
-                        color: detailStudentStore.isSelected
-                            ? Colors.yellow
-                            : Colors.red),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Icon(Icons.home)
+                    const Icon(Icons.home),
+                    Visibility(
+                        visible: detailStudentStore.isActive,
+                        child: Icon(
+                          detailStudentStore.isActive
+                              ? Icons.arrow_forward
+                              : Icons.arrow_back,
+                          color: Colors.green,
+                        )),
+                    const Icon(Icons.school)
                   ],
-                ),
-              );
-            },
-          );
-        }),
+                );
+              }),
+            );
+          },
+        ),
       ),
     );
   }

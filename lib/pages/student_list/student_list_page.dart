@@ -39,6 +39,7 @@ class _StudentListPageState extends State<StudentListPage> {
                     ),
                   ),
                 );
+                
               },
               leading: CircleAvatar(
                 radius: 20,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:vetiludriversons/models/selected_students_route_model.dart';
 import 'package:vetiludriversons/models/son_data_model.dart';
 import 'package:vetiludriversons/repositories/driver_routes_repository.dart';
 import 'package:vetiludriversons/store/detail_student_store.dart';
@@ -65,8 +66,14 @@ class _DetailStudentPageState extends State<DetailStudentPage> {
                     style: ElevatedButton.styleFrom(primary: Colors.amber),
                     onPressed: () {
                       detailStudentStore.activeStudentHome();
+
+                      setState(() {
+                        driverRoutesRepository.selectedStudents.add(
+                            SelectedStudentsRouteModel(
+                                sonDataModel: widget.sonDataModel!));
+                      });
+
                       Navigator.pop(context);
-                    
                     },
                     child: const Text('Embarcar para casa'),
                   );

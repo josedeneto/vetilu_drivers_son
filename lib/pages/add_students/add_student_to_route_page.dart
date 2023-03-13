@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:vetiludriversons/pages/student_list/student_list_page.dart';
 
 import '../../repositories/driver_routes_repository.dart';
-import '../../repositories/son_data_repositories.dart';
-import '../../store/detail_student_store.dart';
-import '../detail_student/detail_student_page.dart';
 
 class AddStudentToRoutePage extends StatefulWidget {
   const AddStudentToRoutePage({Key? key}) : super(key: key);
@@ -16,8 +12,7 @@ class AddStudentToRoutePage extends StatefulWidget {
 
 class _AddStudentToRoutePageState extends State<AddStudentToRoutePage> {
   final studentsSelected = DriverRoutesRepository();
-   final detailStudentStore = DetailStudentStore();
-    final students = SonDataRepositories();
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +23,7 @@ class _AddStudentToRoutePageState extends State<AddStudentToRoutePage> {
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
           onTap: () {
+           
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -63,55 +59,14 @@ class _AddStudentToRoutePageState extends State<AddStudentToRoutePage> {
                   ),
                 )
               : ListView.separated(
-          separatorBuilder: (_, __) => const Divider(thickness: 0.5),
-          itemCount: students.dataUserChild.length,
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (_, e) {
-            return ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => DetailStudentPage(
-                      sonDataModel: students.dataUserChild[e],
-                    ),
+                  itemBuilder: (_, student) => const ListTile(
+                    title: Text('Embarque para casa'),
                   ),
-                );
-              },
-              leading: CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.blue,
-                child: Text(
-                  students.dataUserChild[e].name[0],
+                  separatorBuilder: (_, __) => const Divider(
+                    thickness: 0.5,
+                  ),
+                  itemCount: studentsSelected.selectedStudents.length,
                 ),
-              ),
-              title: Text(
-                students.dataUserChild[e].name,
-              ),
-              subtitle: Text(
-                students.dataUserChild[e].nameSchool,
-              ),
-              trailing: Observer(builder: (_) {
-                return Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.home),
-                    Visibility(
-                        visible: detailStudentStore.isActive,
-                        child: Icon(
-                          detailStudentStore.isActive
-                              ? Icons.arrow_forward
-                              : Icons.arrow_back,
-                          color: Colors.green,
-                        )),
-                    const Icon(Icons.school)
-                  ],
-                );
-              }),
-            );
-          },
-        ),
         ),
       ),
     );
